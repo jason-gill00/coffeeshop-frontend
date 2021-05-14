@@ -1,0 +1,39 @@
+.header {
+  &__logo {
+    //flood-color: pink;
+    > div {
+      margin-left: 10px;
+      font-size: 30px;
+      font-weight: bolder;
+      color: #016c0e;
+    }
+    > img {
+      width: 50px;
+      height: 50px;
+      filter: opacity(0.8) drop-shadow(0 0 0 $darkGreen);
+    }
+  }
+  &__links {
+    > a {
+      font-size: $font-med;
+      color: $lightGray;
+      transition: color 200ms ease-in-out;
+      &:not(:last-child) {
+        padding-right: 100px;
+      }
+      &:hover {
+        color: $darkGreen;
+      }
+    }
+  }
+  &__icon {
+    > img {
+      width: 30px;
+      height: 30px;
+      filter: opacity(0.8) drop-shadow(0 0 0 $darkGreen);
+      &:not(:last-child) {
+        padding-right: 40px;
+      }
+    }
+  }
+}
