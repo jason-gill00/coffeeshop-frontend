@@ -1,0 +1,89 @@
+.hero {
+  // // width: 100%;
+  // width: 780px;
+  // //   height: 900px;
+  // height: 870px;
+  // position: relative;
+  // //   background-color: #deede1;
+  height: 780px;
+  max-width: 101rem;
+  margin: auto;
+  position: relative;
+
+  &__text {
+    position: relative;
+    flex: 2;
+    text-align: left;
+    // padding-left: 147px;
+    padding-left: 123px;
+    // padding: -19px;
+    margin-left: 60px;
+    // width: -24px;
+    margin: auto;
+    > h1 {
+      color: white;
+      font-size: 60px;
+      font-weight: 900;
+    }
+    > p {
+      color: #c2e5c1;
+      padding: 27px;
+      font-size: 22px;
+    }
+  }
+
+  &__test {
+    // position: absolute;
+    // z-index: -1;
+    height: 100%;
+    // width: 57%;
+    // left: 40%;
+    position: relative;
+    display: flex;
+    width: 100%;
+    background-color: #00704a;
+    border-radius: 20px;
+    .username {
+      display: none;
+      padding-top: 63px;
+      padding-right: 25px;
+      font-size: 40px;
+      font-weight: 500;
+      color: white;
+    }
+  }
+
+  &__image {
+    height: 100%;
+    flex: 3;
+    width: 35px;
+    // width: 50%;
+    // margin-left: 4rem;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-image: url(../components/images/hero_background.jpeg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  &__signin-btn {
+    background-color: #49ae85;
+    width: 27%;
+    margin: 0 20px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 15px;
+    text-align: center;
+    > a {
+      color: white;
+      font-size: 19px;
+      font-weight: 500;
+    }
+    transition: ease-in-out 200ms;
+    &:hover {
+      cursor: pointer;
+      background-color: #77c6a6;
+    }
+  }
+}

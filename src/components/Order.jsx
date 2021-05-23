@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 //Componenet Imports
 import Dropdown from "./Dropdown";
 import coffeeTypes from "./coffeeTypes.json";
+import Checkout from "./Checkout";
 
 //Image Imports
 // import cupIcon from './images/coffee-cup.png';
@@ -13,7 +14,7 @@ import hotCoffee from './images/hot-coffee.png';
 function Order() {
 
     const [size, setSize] = useState(null);
-    console.log(size);
+    // console.log(size);
     // const [selected, setSelected] = useState(false);
 
     const [dropdownValue, setDropdownValue] = useState(null)
@@ -23,38 +24,51 @@ function Order() {
     const [countCream, setCountCream] = useState(0);
 
     const [cart, setCart] = useState([]);
-    const [clicked, setClicked] = useState(false);
-    console.log(clicked);
+
+    const [checkoutPopup, setCheckoutPopup] = useState(false);
+    // const [clicked, setClicked] = useState(false);
 
     // const [shake, setShake] = useState(false);
 
-    const addToCart = (e) =>{
+    // const orderCheckout = async() => {
+    //     console.log(cart);
+    //     const url = "http://localhost:5000/api/order/submit";
+    //     const token = localStorage.getItem('auth-token');
+
+    //     const result = await fetch(url, {
+    //         method: 'POST',
+    //         headers : {
+    //             'auth-token': `${token}`,
+    //             'Content-type': 'application/json'
+    //         },
+    //         body : JSON.stringify(cart)
+    //     });
+    //     console.log(result);
+
+    //     setCart([]);
+    // }
+
+    const addToCart = async(e) =>{
+
+
         if(size == null || dropdownValue == null){
             // setShake(true);
         }
         else{
-            const newClicked = true;
-            setClicked(newClicked);
-            if(newClicked){
-                setCart(()=>cart.concat({"size":size, "type":dropdownValue.type, "milk":countMilk, "sugar":countSugar, "cream":countCream}));
-            }
+            setCart(()=>cart.concat({"size":size, "type":dropdownValue.type, "num_milk":countMilk, "num_sugar":countSugar, "num_cream":countCream}));
+
             setCountMilk(0)
             setCountSugar(0)
             setCountCream(0)
             setDropdownValue(null)
             setSize(null)
-            // console.log(cart);
-            
-            // setCart([{"size":size, "type":dropdownValue.type, "milk":countMilk, "sugar":countSugar, "cream":countCream}]);
-            // setCart({})
-            // setCart({"size":size, "type":dropdownValue.type, "milk":countMilk, "sugar":countSugar, "cream":countCream});
-            console.log(cart);
+           
         }
         
     }
 
     return (
-        <section className="order flex flex-jc-c">
+        <section className="order container flex flex-jc-c">
             <div className="order__text container-pl">
                 <h1>Order A Delicious Brew Of Coffee</h1>   
                 <p>At Jason & Aren's Coffee Co. we are commited to brewing the best coffee possible. Order you're cup-of coffee and pick it     up at one of our locations.</p>
@@ -128,16 +142,21 @@ function Order() {
                             <h1>Coffee Cart</h1>
                         </div>
                         {cart.map((item)=>{
-                            const {size, type, milk, sugar, cream} = item;
+                            let count = 0;
+                            const {size, type, num_milk, num_sugar, num_cream} = item;
                             return (
-                            <div className="cart__item flex">   
+                            <div key={count+1} className="cart__item flex">   
                                 <img src={hotCoffee} alt="coffee"></img> 
                                 <div className="item-info">
                                     <h3>{size} {type} Coffee</h3>
                                     <div className="add-on">
-                                        <p>{milk} 2% Milks</p>
-                                        <p>{cream} Creams</p>
-                                        <p>{sugar} Sugars</p>
+                                        {((num_milk===0 && (num_cream===0) && (num_sugar===0)) ? <p> Black</p> : null)}
+                                        {!(num_milk===0) ? <p>{num_milk} 2% Milks</p> : null}
+                                        {!(num_cream===0) ? <p>{num_cream} Creams</p> : null}
+                                        {!(num_sugar===0) ? <p>{num_sugar} Sugars</p> : null}
+                                        {/* <p>{num_milk} 2% Milks</p>
+                                        <p>{num_cream} Creams</p>
+                                        <p>{num_sugar} Sugars</p> */}
                                     </div>
                                     
                                 </div>
@@ -145,19 +164,20 @@ function Order() {
                                 <h4>{type}</h4>
                                 <h4>{milk} Milks</h4>
                                 <h4>{sugar} Sugars</h4>
-                                <h4>{cream} Creams</h4> */}
+                                <h4>{cream} Creams</h4> orderCheckout();*/}
                             </div>
                             );
-                            
-
                         })}
+                        <div className="order__btn" onClick={()=>{setCheckoutPopup(true);}}>
+                            <a href="#/">Checkout</a>
+                        </div>
                         
 
                     </div>
                 
                 </div>
             </div>
-            
+            <Checkout trigger={checkoutPopup} setTrigger={setCheckoutPopup}></Checkout>
         </section>
     )
 }

@@ -1,0 +1,28 @@
+.checkout-page {
+  --color-primary: #009579;
+  --color-primary-dark: #007f67;
+  --color-secondary: #252c6a;
+  --color-error: #cc3333;
+  --color-success: #4bb544;
+  --border-radius: 4px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  overscroll-behavior: contain;
+}
+
+.checkout {
+  width: 40%;
+  height: 400px;
+  background-color: $starbucksGreen;
+}

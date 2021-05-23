@@ -1,0 +1,21 @@
+[
+        {
+            "src": "images/menu_img1.jpg",
+            "title": "Brown Sugar Americano",
+            "description": "Brown-sugar syrup and water topped with a steamed oat beverage and dashes of cinnamon"
+        },
+        {
+            "src": "images/menu_img2.jpg",
+            "title": "Salted Caramel Cold Brew",
+            "description": " Sweetened with a touch of caramel and topped with a salted, rich cold foam."
+        },
+        {
+            "src": "images/menu_img3.jpg",
+            "title": "Iced Shaken Espresso",
+            "description": "Chilled and mellowed with sweetness and a touch of milk to create a delightfully and deliciously convenient on-the-go drink."
+        },
+        {
+            "title":"Honey Oat Latte",
+            "description":"Oat beverage and Blonde Espresso Roast are intentionally combined over ice with a hint of honey and a toasted honey topping."
+        }
+]

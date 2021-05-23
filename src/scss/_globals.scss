@@ -27,7 +27,7 @@ a:hover {
   &-jc-c {
     justify-content: center;
   }
-  &-jc-l{
+  &-jc-l {
     justify-content: left;
   }
   &-ai-c {
@@ -36,16 +36,27 @@ a:hover {
 }
 
 .container {
+  max-width: 101rem;
+  margin: auto;
   &-pall {
-    padding-top: 2rem;
+    padding-top: 1rem;
     padding-right: 4rem;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
     padding-left: 4rem;
   }
   &-pl {
     padding-left: 4rem;
   }
   &-pr {
-    padding-right:4rem;
+    padding-right: 4rem;
   }
+}
+.z-index {
+  z-index: -1;
+}
+
+.App {
+  // max-width: 1930px;
+  max-width: 1735px;
+  margin: auto;
 }
