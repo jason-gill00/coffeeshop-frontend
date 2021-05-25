@@ -49,6 +49,7 @@ function LoginPopup(props) {
             // const data = await response.json();
             // console.log(data.user)
             // props.setUser(data.user);
+            props.zindex();
             props.setIsLogged(true);
             props.setTrigger(false);
         }

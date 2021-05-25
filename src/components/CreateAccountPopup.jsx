@@ -85,12 +85,6 @@ function CreateAccountPopup(props) {
                     <div className="form__input-error-message"></div>
                 </div>
                 <button className="form__button" type="submit" onClick={() =>createAccount()}>Continue</button>
-                <p className="form__text">
-                    <a href="#/" className="form__link">Forgot your password?</a>
-                </p>
-                <p className="form__text">
-                    <a href="#/" id="linkCreateAccount" className="form__link">Don't have an account? Create account</a>
-                </p>
             </form>
         </div>      
     </div>

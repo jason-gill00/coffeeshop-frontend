@@ -1,7 +1,7 @@
 import React from 'react';
 import mainLogo from './images/coffee.png';
 import userIcon from './images/user.png';
-import shoppingIcon from './images/shopping-cart.png';
+// import shoppingIcon from './images/shopping-cart.png';
 
 function Header() {
     return (
@@ -13,11 +13,11 @@ function Header() {
                 </a>
                 <div className="header__links">
                     <a href="#/">Home</a>
-                    <a href="#/">Menu</a>
-                    <a href="#/">Order</a>
+                    <a href="#menu__section">Menu</a>
+                    <a href="#order__section">Order</a>
                 </div>
                 <a href="#/" className="header__icon">
-                    <img src={shoppingIcon} alt="cart"></img>
+                    {/* <img src={shoppingIcon} alt="cart"></img> */}
                     <img src={userIcon} alt="user"></img>
                 </a>
 

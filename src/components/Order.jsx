@@ -1,9 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react';
 
 //Componenet Imports
 import Dropdown from "./Dropdown";
 import coffeeTypes from "./coffeeTypes.json";
 import Checkout from "./Checkout";
+import Context from './Context';
+// import OrderHistory from './OrderHistory';
 
 //Image Imports
 // import cupIcon from './images/coffee-cup.png';
@@ -23,38 +25,71 @@ function Order() {
     const [countSugar, setCountSugar] = useState(0);
     const [countCream, setCountCream] = useState(0);
 
-    const [cart, setCart] = useState([]);
+    // const [cart, setCart] = useState([]);
+
+    // const [cart, setCart] = useState([]);
+
+    const [cart, setCart] = useContext(Context);
+
+    // const {cart, setCart} = useContext(Context);
 
     const [checkoutPopup, setCheckoutPopup] = useState(false);
+    // const [history, setHistory] = useState(false);
+    // const [historyData, setHistoryData] = useState([]);
     // const [clicked, setClicked] = useState(false);
 
     // const [shake, setShake] = useState(false);
 
-    // const orderCheckout = async() => {
-    //     console.log(cart);
-    //     const url = "http://localhost:5000/api/order/submit";
+    const orderCheckout = async() => {
+        console.log(cart);
+        const url = "http://localhost:5000/api/order/submit";
+        const token = localStorage.getItem('auth-token');
+
+        const result = await fetch(url, {
+            method: 'POST',
+            headers : {
+                'auth-token': `${token}`,
+                'Content-type': 'application/json'
+            },
+            body : JSON.stringify(cart)
+        });
+        console.log(result);
+
+        setCart([]);
+    }
+
+    // const data;
+
+    // const viewHistory = async() =>{
+    //     const url = "http://localhost:5000/api/order/history";
     //     const token = localStorage.getItem('auth-token');
 
     //     const result = await fetch(url, {
-    //         method: 'POST',
+    //         method: 'GET',
     //         headers : {
     //             'auth-token': `${token}`,
     //             'Content-type': 'application/json'
-    //         },
-    //         body : JSON.stringify(cart)
+    //         }
     //     });
-    //     console.log(result);
+    //     const data = await result.json();
+    //     setHistoryData(data)
+    //     // console.log(data);
+    //     // const date = (data.history[0].order_date).split('T');
+    //     // console.log(date[0]);
 
-    //     setCart([]);
     // }
+
 
     const addToCart = async(e) =>{
 
 
         if(size == null || dropdownValue == null){
             // setShake(true);
+            setCart([])
         }
         else{
+            // actions({type:'setCart', payload:{cart.concat({"size":size, "type":dropdownValue.type, "num_milk":countMilk, "num_sugar":countSugar, "num_cream":countCream})}})
+            // console.log(cart);
             setCart(()=>cart.concat({"size":size, "type":dropdownValue.type, "num_milk":countMilk, "num_sugar":countSugar, "num_cream":countCream}));
 
             setCountMilk(0)
@@ -68,12 +103,15 @@ function Order() {
     }
 
     return (
-        <section className="order container flex flex-jc-c">
-            <div className="order__text container-pl">
-                <h1>Order A Delicious Brew Of Coffee</h1>   
-                <p>At Jason & Aren's Coffee Co. we are commited to brewing the best coffee possible. Order you're cup-of coffee and pick it     up at one of our locations.</p>
+        <section id="order__section" className="order container flex flex-jc-c">
+            <div className="order__text">
+                <div className="order__text-container">
+                    <h1>Order A Delicious Brew Of Coffee</h1>   
+                    <p>At Jason & Aren's Coffee Co. we are commited to brewing the best coffee possible. Order you're cup-of coffee and pick it     up at one of our locations.</p>
+                    {/* <a href="#/" onClick={()=>{viewHistory();setHistory(true)}}>View History</a> */}
+                </div>
             </div>
-            <div className="order__coffee container-pr flex">
+            <div className="order__coffee flex">
                 <div className="order__selection">
                     <div className="order__title">
                         <img src={coffeeMachine} className={size == null || dropdownValue == null ? "shake" : null} alt="machine"></img>
@@ -137,39 +175,43 @@ function Order() {
                 </div>
                 <div className="cart">
                     <div className="order__selection">
-                        <div className="order__title">
+                        <div className="order__title cart-title">
                             <img src={shoppingCart} alt="machine"></img>
                             <h1>Coffee Cart</h1>
                         </div>
-                        {cart.map((item)=>{
-                            let count = 0;
-                            const {size, type, num_milk, num_sugar, num_cream} = item;
-                            return (
-                            <div key={count+1} className="cart__item flex">   
-                                <img src={hotCoffee} alt="coffee"></img> 
-                                <div className="item-info">
-                                    <h3>{size} {type} Coffee</h3>
-                                    <div className="add-on">
-                                        {((num_milk===0 && (num_cream===0) && (num_sugar===0)) ? <p> Black</p> : null)}
-                                        {!(num_milk===0) ? <p>{num_milk} 2% Milks</p> : null}
-                                        {!(num_cream===0) ? <p>{num_cream} Creams</p> : null}
-                                        {!(num_sugar===0) ? <p>{num_sugar} Sugars</p> : null}
-                                        {/* <p>{num_milk} 2% Milks</p>
-                                        <p>{num_cream} Creams</p>
-                                        <p>{num_sugar} Sugars</p> */}
+                        <div className="order__cart-items">
+                            {cart.map((item)=>{
+                                let count = 0;
+                                const {size, type, num_milk, num_sugar, num_cream} = item;
+                                return (
+                                <div key={count+1} className="cart__item flex">   
+                                    <img src={hotCoffee} alt="coffee"></img> 
+                                    <div className="item-info">
+                                        <h3>{size} {type} Coffee</h3>
+                                        <div className="add-on">
+                                            {((type !== "Decafe") && (type !== "Original Blend") && (type !== "Latte") && (type !== "Cappuccino")) ? <p>Specialty Menu</p> : null}
+                                            {((num_milk===0 && (num_cream===0) && (num_sugar===0)) && ((type === "Decafe") || (type === "Original Blend") || (type === "Latte") || (type === "Cappuccino")) ? <p> Black</p> : null)}
+                                            {!(num_milk===0) ? <p>{num_milk} 2% Milks</p> : null}
+                                            {!(num_cream===0) ? <p>{num_cream} Creams</p> : null}
+                                            {!(num_sugar===0) ? <p>{num_sugar} Sugars</p> : null}
+                                            {/* <p>{num_milk} 2% Milks</p>
+                                            <p>{num_cream} Creams</p>
+                                            <p>{num_sugar} Sugars</p> */}
+                                        </div>
+                                        
                                     </div>
-                                    
+                                    {/* <h3>{size} {type} Coffee With {milk!==0 ? milk : null} milks</h3>
+                                    <h4>{type}</h4>
+                                    <h4>{milk} Milks</h4>
+                                    <h4>{sugar} Sugars</h4>
+                                    <h4>{cream} Creams</h4> orderCheckout();*/}
                                 </div>
-                                {/* <h3>{size} {type} Coffee With {milk!==0 ? milk : null} milks</h3>
-                                <h4>{type}</h4>
-                                <h4>{milk} Milks</h4>
-                                <h4>{sugar} Sugars</h4>
-                                <h4>{cream} Creams</h4> orderCheckout();*/}
+                                );
+                            })}
+                        
+                            <div className="order__btn" onClick={()=>{if(cart.length !== 0){orderCheckout(); setCheckoutPopup(true);}}}>
+                                <a href="#/">Checkout</a>
                             </div>
-                            );
-                        })}
-                        <div className="order__btn" onClick={()=>{setCheckoutPopup(true);}}>
-                            <a href="#/">Checkout</a>
                         </div>
                         
 
@@ -178,6 +220,7 @@ function Order() {
                 </div>
             </div>
             <Checkout trigger={checkoutPopup} setTrigger={setCheckoutPopup}></Checkout>
+            {/* <OrderHistory trigger={history} setTrigger={setHistory} history_data={historyData}></OrderHistory> */}
         </section>
     )
 }

@@ -73,7 +73,7 @@ function Hero() {
         item_3.classList.remove("z-index")
         item_4.classList.remove("z-index")
     // console.log(item);
-    // items.map((item) => item.classList.add("z-index"))
+    // items.map((item) => item.classList.add("z-index"))sadasd
     }
 
     return (
@@ -83,7 +83,7 @@ function Hero() {
                 {isLogged && (<h2 className="username">Welcome: {user}</h2>)}
                 <div className="hero__text">
                     <h1>LIFE IS BETTER WITH COFFEE</h1>
-                    <p>We beleive a cup of coffe is one of the most important simple pleasures of life</p>
+                    <p>We beleive a cup of coffee is one of the most important simple pleasures of life</p>
                     <div className="hero__login flex">
                         <div className="hero__signin-btn" onClick={()=> {zIndexAdd(); setSignInPopup(true)}}>
                                 <a href="#/">Sign In</a>

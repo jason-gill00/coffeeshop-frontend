@@ -5,9 +5,21 @@ import './scss/style.css'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import store from './components/Store';
+import Context from './components/Context';
+
+const Index = () => {
+  const {cart, setCart} = store();
+  return(
+    <Context.Provider value = {[cart,setCart]}>
+      <App/>
+    </Context.Provider>
+  )
+}
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Index />
   </React.StrictMode>,
   document.getElementById('root')
 );
