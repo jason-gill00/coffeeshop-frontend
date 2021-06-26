@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+![](https://github.com/jason-gill00/coffeeshop-frontend/blob/main/coffee_shop_gif.gif)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
